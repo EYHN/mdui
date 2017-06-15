@@ -188,6 +188,7 @@ mdui.Drawer = (function () {
         if (dXAbs > threshold && dYAbs <= threshold) {
           swipeStartX = touchX;
           swiping = _this.state === 'opened' ? 'closing' : 'opening';
+          $(document.body).addClass('mdui-locked');
           setPosition(getTranslateX(touchX), true);
         } else if (dXAbs <= threshold && dYAbs > threshold) {
           onBodyTouchEnd();
@@ -221,6 +222,8 @@ mdui.Drawer = (function () {
             cleanPosition();
           }
         }
+
+        $(document.body).removeClass('mdui-locked');
       } else {
         maybeSwiping = false;
       }

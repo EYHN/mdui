@@ -4110,9 +4110,9 @@
         touchStartX = touchX;
         touchStartY = touchY;
   
-        document.body.addEventListener('touchmove', onBodyTouchMove, {passive: false, cancelable: true});
-        document.body.addEventListener('touchend', onBodyTouchEnd, {passive: false, cancelable: true});
-        document.body.addEventListener('touchcancel', onBodyTouchMove, {passive: false, cancelable: true});
+        document.body.addEventListener('touchmove', onBodyTouchMove);
+        document.body.addEventListener('touchend', onBodyTouchEnd);
+        document.body.addEventListener('touchcancel', onBodyTouchMove);
       }
   
       function onBodyTouchMove(event) {
@@ -4132,6 +4132,7 @@
           if (dXAbs > threshold && dYAbs <= threshold) {
             swipeStartX = touchX;
             swiping = _this.state === 'opened' ? 'closing' : 'opening';
+            $(document.body).addClass('mdui-locked');
             setPosition(getTranslateX(touchX), true);
           } else if (dXAbs <= threshold && dYAbs > threshold) {
             onBodyTouchEnd();
@@ -4165,13 +4166,15 @@
               cleanPosition();
             }
           }
+  
+          $(document.body).removeClass('mdui-locked');
         } else {
           maybeSwiping = false;
         }
   
-        document.body.removeEventListener('touchmove', onBodyTouchMove, {passive: false, cancelable: true});
-        document.body.removeEventListener('touchend', onBodyTouchEnd, {passive: false, cancelable: true});
-        document.body.removeEventListener('touchcancel', onBodyTouchMove, {passive: false, cancelable: true});
+        document.body.removeEventListener('touchmove', onBodyTouchMove);
+        document.body.removeEventListener('touchend', onBodyTouchEnd);
+        document.body.removeEventListener('touchcancel', onBodyTouchMove);
       }
     }
   
