@@ -4122,7 +4122,6 @@
         var touchY = event.touches[0].pageY;
   
         if (swiping) {
-          event.preventDefault();
           setPosition(getTranslateX(touchX), true);
         } else if (maybeSwiping) {
           var dXAbs = Math.abs(touchX - touchStartX);
